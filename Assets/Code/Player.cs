@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int hız = 7;
     public int ZıplamaGücü = 150;
     Rigidbody2D Rigid;
+    public Collider2D col;
     public float yatay;
     public float dikey;
     
@@ -22,27 +23,19 @@ public class Player : MonoBehaviour
     void Update()
     {
         YatayHaraket();
-        PuanText.text = puan.ToString();
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Coin")
-            {
-                puan++;
-                Destroy(collision.gameObject);
-            }
+            Debug.Log(collision.gameObject.tag);
             if (collision.gameObject.tag == "Yer")
             {
                 Zıpla();
             }
         }
+        OnTriggerEnter2D(col);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Coin")
-        {
-            puan++;
-            Destroy(collision.gameObject);
-        }
+        
         if (collision.gameObject.tag == "Yer")
         {
             Zıpla();
@@ -70,6 +63,6 @@ public class Player : MonoBehaviour
     void YatayHaraket()
     {
         yatay = Input.GetAxis("Horizontal");
-        Rigid.AddForce(new Vector3(yatay * hız, 0, 0));
+        Rigid.AddForce(new Vector3(50, 0, 0));
     }
 }
